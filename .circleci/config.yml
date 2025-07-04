@@ -1,5 +1,4 @@
 version: 2.1
-
 jobs:
   ping:
     docker:
@@ -9,12 +8,11 @@ jobs:
           name: Ping /articles
           command: |
             curl -s -o /dev/null -w "%{http_code}" https://nougat-f609.onrender.com/api/articles
-
 workflows:
   ping-every-10-min:
     triggers:
       - schedule:
-          cron: "0 0,10,20,30,40,50 * * * *"
+          cron: "0 0,10,20,30,40,50 * * *"
           filters:
             branches:
               only:
