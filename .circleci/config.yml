@@ -1,0 +1,25 @@
+# .circleci/config.yml
+
+version: 2.1
+
+jobs:
+  ping:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Ping /articles
+          command: |
+            curl -s -o /dev/null -w "%{http_code}" https://nougat-f609.onrender.com/api/articles
+
+workflows:
+  ping-every-10-min:
+    triggers:
+      - schedule:
+          cron: "*/10 * * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - ping
